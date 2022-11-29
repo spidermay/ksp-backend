@@ -1,0 +1,692 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Python3 Flask Rest API for KSP project",
+    "description": "spidermay python rest api",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employee Request",
+      "description": "Example API for requesting and return employee requests"
+    }
+  ],
+  "paths": {
+    "/employee?page&size": {
+      "parameters":[  
+					{  
+						"in":"query",
+						"name":"page",
+						"required":false,
+            "type": "integer",
+            "description": "The number of page starting to collect the result set"
+          },
+          {  
+						"in":"query",
+						"name":"size",
+						"required":false,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result set"
+					},
+          {  
+						"in":"query",
+						"name":"query",
+						"required":false,
+            "type": "integer",
+            "description": "Show the query for testing"
+					}
+        ],
+      "get": {
+        "tags": [
+          "Employee Request"
+        ],
+        "summary": "Returns employeeRequests",
+        "parameters":[  
+					{  
+						"in":"query",
+						"name":"page",
+						"required":false,
+            "description": "The number of page starting to collect the result set",
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+					},
+          {  
+						"in":"query",
+						"name":"size",
+						"required":false,
+            "description": "The number of items to skip before starting to collect the result set",
+            "schema": {
+              "$ref": "#/components/schemas/size"
+            }
+					},
+          {  
+						"in":"query",
+						"name":"query",
+						"required":false,
+            "description": "Show the query for testing",
+            "schema": {
+              "$ref": "#/components/schemas/query"
+            }
+					}
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/employeeRequests"
+            }
+          }
+        }
+      }
+    },
+
+    "/employee": {
+      "post": {
+        "tags": [
+          "Employee Request"
+        ],
+        "summary": "Create a new employee request system",
+        "requestBody": {
+          "description": "Employee Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/employeeRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+
+    "/employee/{item_id}": {
+      "parameters": [
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the cat that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Employee Request"
+        ],
+        "summary": "Get employee request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Employee Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/employeeRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Employee request not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "edit a employee request by item_id",
+        "tags": [
+          "Employee Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Employee Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Employee Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/employeeRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/employeeRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Employee Request by item_id",
+        "tags": [
+          "Employee Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Employee Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Employee Request not found."
+          }
+        }
+      }
+    },
+    
+    
+
+
+    "/beneficiary?page&size&employee_id": {
+      "parameters":[  
+					{  
+						"in":"query",
+						"name":"page",
+						"required":false,
+            "type": "integer",
+            "description": "The number of page starting to collect the result set"
+          },
+          {  
+						"in":"query",
+						"name":"size",
+						"required":false,
+            "type": "integer",
+            "description": "The number of items to skip before starting to collect the result set"
+					},
+          {  
+						"in":"query",
+						"name":"query",
+						"required":false,
+            "type": "integer",
+            "description": "Show the query for testing"
+					},
+          {  
+						"in":"query",
+						"name":"employee_id",
+						"required":false,
+            "type": "integer",
+            "description": "Employee_id parent"
+					}
+      ],
+      "get": {
+        "tags": [
+          "Beneficiary Request"
+        ],
+        "summary": "Returns beneficiaryRequests",
+        "parameters":[  
+					{  
+						"in":"query",
+						"name":"page",
+						"required":false,
+            "description": "The number of page starting to collect the result set",
+            "schema": {
+              "$ref": "#/components/schemas/page"
+            }
+					},
+          {  
+						"in":"query",
+						"name":"size",
+						"required":false,
+            "description": "The number of items to skip before starting to collect the result set",
+            "schema": {
+              "$ref": "#/components/schemas/size"
+            }
+					},
+          {  
+						"in":"query",
+						"name":"query",
+						"required":false,
+            "description": "Show the query for testing",
+            "schema": {
+              "$ref": "#/components/schemas/query"
+            }
+					},
+          {  
+						"in":"query",
+						"name":"employee_id",
+						"required":false,
+            "description": "Employee_id parent",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+					}
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/beneficiaryRequests"
+            }
+          }
+        }
+      }
+    },
+
+    "/beneficiary": {
+      "post": {
+        "tags": [
+          "Beneficiary Request"
+        ],
+        "summary": "Create a new beneficiary request system",
+        "requestBody": {
+          "description": "Beneficiary Request Post Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/beneficiaryRequestPostBody"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      }
+    },
+
+    "/beneficiary/{item_id}": {
+      "parameters": [
+        {
+          "name": "item_id",
+          "in": "path",
+          "required": true,
+          "description": "ID of the cat that we want to match",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Beneficiary Request"
+        ],
+        "summary": "Get beneficiary request with given ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Beneficiary Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/beneficiaryRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Beneficiary request not found."
+          }
+        }
+      },
+      "put": {
+        "summary": "edit a beneficiary request by item_id",
+        "tags": [
+          "Beneficiary Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Beneficiary Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Beneficiary Request Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/beneficiaryRequest"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/beneficiaryRequest"
+            }
+          },
+          "400": {
+            "description": "Failed. Bad post data."
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete Beneficiary Request by item_id",
+        "tags": [
+          "Beneficiary Request"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "item_id",
+            "required": true,
+            "description": "Beneficiary Request item_id",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/item_id"
+            }
+          },
+          "400": {
+            "description": "Failed. Misunderstood Request."
+          },
+          "404": {
+            "description": "Failed. Beneficiary Request not found."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "item_id": {
+        "properties": {
+          "item_id": {
+            "type": "string"
+          }
+        }
+      },
+      "page": {
+        "properties": {
+          "page": {
+            "type": "integer"
+          }
+        }
+      },
+      "size": {
+        "properties": {
+          "size": {
+            "type": "integer"
+          }
+        }
+      },
+      "query": {
+        "properties": {
+          "query": {
+            "type": "integer"
+          }
+        }
+      },
+      "employeeRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "names": {
+            "type": "string",
+            "format": "string"
+          },
+          "lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "mother_lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "string"
+          },
+          "salary": {
+            "type": "number",
+            "format": "number"
+          },
+          "position_job": {
+            "type": "string",
+            "format": "string"
+          },
+          "status": {
+            "type": "string",
+            "format": "string"
+          },
+          "hiring_date": {
+            "type": "string",
+            "format": "string"
+          },
+          "sex": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "employeeRequest": {
+        "type": "object",
+        "properties": {
+          "names": {
+            "type": "string",
+            "format": "string"
+          },
+          "lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "mother_lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "string"
+          },
+          "image": {
+            "type": "string",
+            "format": "string"
+          },
+          "salary": {
+            "type": "number",
+            "format": "number"
+          },
+          "position_job": {
+            "type": "string",
+            "format": "string"
+          },
+          "status": {
+            "type": "string",
+            "format": "string"
+          },
+          "hiring_date": {
+            "type": "string",
+            "format": "string"
+          },
+          "sex": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "employeeRequests": {
+        "type": "object",
+        "properties": {
+          "employeeRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/employeeRequest"
+            }
+          }
+        }
+      },
+
+      "beneficiaryRequestPostBody": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "integer",
+            "format": "integer"
+          },
+          "names": {
+            "type": "string",
+            "format": "string"
+          },
+          "lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "mother_lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "string"
+          },
+          "relationship": {
+            "type": "string",
+            "format": "string"
+          },
+          "sex": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "beneficiaryRequest": {
+        "type": "object",
+        "properties": {
+          "employee_id": {
+            "type": "integer",
+            "format": "integer"
+          },
+          "names": {
+            "type": "string",
+            "format": "string"
+          },
+          "lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "mother_lastname": {
+            "type": "string",
+            "format": "string"
+          },
+          "birthday": {
+            "type": "string",
+            "format": "string"
+          },
+          "relationship": {
+            "type": "string",
+            "format": "string"
+          },
+          "sex": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "beneficiaryRequests": {
+        "type": "object",
+        "properties": {
+          "beneficiaryRequest": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/beneficiaryRequest"
+            }
+          }
+        }
+      }
+    }
+  }
+}
