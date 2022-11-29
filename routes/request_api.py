@@ -106,8 +106,8 @@ def get_employee(item_id):
         if(data["employee"]["item_id"] > 0):
             success = 1
 
-        # if(args.get("query") != "1"):
-        #     sql = ""
+        if(args.get("query") != "1"):
+            sql = ""
         
         return jsonify({ "message":"The data is into nested nodes, node for table", "data":data, "success":success, "sql":sql })
 
